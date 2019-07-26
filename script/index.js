@@ -3,10 +3,9 @@ log("is this thing on?")
 //write a function called makeBreakfast
 //log(eggs);
 const makeBreakfast = (bacon) => {
-    const pancakes = bacon.results[17].image;
+    const pancakes = bacon.results[10].image;
     localStorage.setItem('grit', pancakes);
     const oatMeal = localStorage.getItem('grit');
-    log(oatMeal);
     const URL = bacon.results[17].image;
     log(URL);
     
@@ -23,11 +22,20 @@ const makeLunch = () => {
 // turn that into a JSON object
 
 const URL = `https://rickandmortyapi.com/api/character`;
-fetch(URL)
-.then((response) => {
-    return response.json()
-})
-.then((eggs)=> {
-    makeBreakfast(eggs)
+// function fetchMyData(){ 
+// fetch(URL)
+// .then((response) => {
+//     return response.json()
+// })
+// .then((eggs)=> {
+//     makeBreakfast(eggs)
+//     makeLunch()
+// })
+// }
+async function fetchMyData() {
+    const fetchedData = await fetch(URL)
+    const jsonifiedFetchData = await fetchedData.json()
+    const bacon = makeBreakfast(jsonifiedFetchData)
     makeLunch()
-})
+}
+fetchMyData()
